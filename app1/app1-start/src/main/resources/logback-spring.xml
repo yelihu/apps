@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 导入 Spring Boot 的默认日志配置，这会提供一些有用的预定义属性，例如 CONSOLE_LOG_PATTERN -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 从 Spring 环境中获取应用名称 (在 application.yml 中定义) -->
+    <springProperty scope="context" name="APPLICATION_NAME" source="spring.application.name" defaultValue="default-app"/>
+
+    <!-- 定义日志文件的存储目录，相对于项目根目录 -->
+    <!-- 对于 app1, 这将是 logs/app1 -->
+    <property name="LOG_DIR" value="logs/${APPLICATION_NAME}" />
+
+    <!-- 为文件日志定义一个详细的格式 -->
+    <!-- 格式: 时间戳 日志级别 [应用名,线程名] Logger名 : 消息 换行 异常堆栈 -->
+    <property name="CUSTOM_FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${APPLICATION_NAME},%thread] %logger{40} : %msg%n%throwable"/>
+
+    <!-- 控制台 Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 使用 Spring Boot 默认的控制台日志格式 (通常带有颜色高亮) -->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 文件 Appender (带日志滚动策略) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件路径: logs/app1/app1.log -->
+        <file>${LOG_DIR}/${APPLICATION_NAME}.log</file>
+        <encoder>
+            <pattern>${CUSTOM_FILE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件按天滚动 -->
+            <fileNamePattern>${LOG_DIR}/${APPLICATION_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 保留最近 30 天的日志文件 -->
+            <maxHistory>30</maxHistory>
+            <!-- 所有归档日志文件的总大小上限 -->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Root Logger 配置 -->
+    <root level="INFO"> <!-- 默认日志级别为 INFO -->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <!-- 您可以为特定的包设置更详细的日志级别，例如: -->
+    <!-- <logger name="com.yourcompany.app1" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger> -->
+
+</configuration> 

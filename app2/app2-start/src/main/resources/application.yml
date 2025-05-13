@@ -1,6 +1,10 @@
 server:
   port: 8082
 
+spring:
+  application:
+    name: app2
+
 management:
   server:
     port: 8082

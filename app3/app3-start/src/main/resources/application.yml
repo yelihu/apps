@@ -1,6 +1,10 @@
 server:
   port: 8083
 
+spring:
+  application:
+    name: app3
+
 management:
   server:
     port: 8083

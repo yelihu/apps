@@ -1,0 +1,28 @@
+2025-05-13 22:01:54.422 INFO  [app1,main] com.example.app1.App1Application : Starting App1Application using Java 17.0.13 with PID 53034 (/Users/yelihu/dev/CursorProject/apps/app1/app1-start/target/classes started by yelihu in /Users/yelihu/dev/CursorProject/apps)
+2025-05-13 22:01:54.424 INFO  [app1,main] com.example.app1.App1Application : No active profile set, falling back to 1 default profile: "default"
+2025-05-13 22:01:54.842 INFO  [app1,main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat initialized with port 8081 (http)
+2025-05-13 22:01:54.846 INFO  [app1,main] o.apache.catalina.core.StandardService : Starting service [Tomcat]
+2025-05-13 22:01:54.847 INFO  [app1,main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-05-13 22:01:54.865 INFO  [app1,main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2025-05-13 22:01:54.865 INFO  [app1,main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 419 ms
+2025-05-13 22:01:54.935 INFO  [app1,main] o.s.b.a.w.s.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2025-05-13 22:01:55.090 INFO  [app1,main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 13 endpoint(s) beneath base path '/actuator'
+2025-05-13 22:01:55.116 INFO  [app1,main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8081 (http) with context path ''
+2025-05-13 22:01:55.124 INFO  [app1,main] com.example.app1.App1Application : Started App1Application in 0.922 seconds (process running for 1.293)
+2025-05-13 22:01:55.460 INFO  [app1,RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-13 22:01:55.460 INFO  [app1,RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2025-05-13 22:01:55.461 INFO  [app1,RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms
+2025-05-13 22:05:50.975 INFO  [app1,main] com.example.app1.App1Application : Starting App1Application using Java 17.0.13 with PID 53624 (/Users/yelihu/dev/CursorProject/apps/app1/app1-start/target/classes started by yelihu in /Users/yelihu/dev/CursorProject/apps)
+2025-05-13 22:05:50.976 INFO  [app1,main] com.example.app1.App1Application : No active profile set, falling back to 1 default profile: "default"
+2025-05-13 22:05:51.387 INFO  [app1,main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat initialized with port 8081 (http)
+2025-05-13 22:05:51.391 INFO  [app1,main] o.apache.catalina.core.StandardService : Starting service [Tomcat]
+2025-05-13 22:05:51.392 INFO  [app1,main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-05-13 22:05:51.416 INFO  [app1,main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2025-05-13 22:05:51.416 INFO  [app1,main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 421 ms
+2025-05-13 22:05:51.484 INFO  [app1,main] o.s.b.a.w.s.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2025-05-13 22:05:51.640 INFO  [app1,main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 13 endpoint(s) beneath base path '/actuator'
+2025-05-13 22:05:51.668 INFO  [app1,main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8081 (http) with context path ''
+2025-05-13 22:05:51.676 INFO  [app1,main] com.example.app1.App1Application : Started App1Application in 0.965 seconds (process running for 1.192)
+2025-05-13 22:05:52.107 INFO  [app1,RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-13 22:05:52.107 INFO  [app1,RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2025-05-13 22:05:52.108 INFO  [app1,RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms

@@ -1,0 +1,14 @@
+2025-05-13 22:05:44.684 INFO  [app3,main] com.example.app3.App3Application : Starting App3Application using Java 17.0.13 with PID 53607 (/Users/yelihu/dev/CursorProject/apps/app3/app3-start/target/classes started by yelihu in /Users/yelihu/dev/CursorProject/apps)
+2025-05-13 22:05:44.685 INFO  [app3,main] com.example.app3.App3Application : No active profile set, falling back to 1 default profile: "default"
+2025-05-13 22:05:45.086 INFO  [app3,main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat initialized with port 8083 (http)
+2025-05-13 22:05:45.091 INFO  [app3,main] o.apache.catalina.core.StandardService : Starting service [Tomcat]
+2025-05-13 22:05:45.091 INFO  [app3,main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-05-13 22:05:45.111 INFO  [app3,main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2025-05-13 22:05:45.111 INFO  [app3,main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 410 ms
+2025-05-13 22:05:45.179 INFO  [app3,main] o.s.b.a.w.s.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2025-05-13 22:05:45.308 INFO  [app3,main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 13 endpoint(s) beneath base path '/actuator'
+2025-05-13 22:05:45.335 INFO  [app3,main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8083 (http) with context path ''
+2025-05-13 22:05:45.343 INFO  [app3,main] com.example.app3.App3Application : Started App3Application in 0.9 seconds (process running for 1.117)
+2025-05-13 22:05:45.852 INFO  [app3,RMI TCP Connection(1)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-13 22:05:45.852 INFO  [app3,RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2025-05-13 22:05:45.853 INFO  [app3,RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms
