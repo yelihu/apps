@@ -11,7 +11,6 @@ build/
 dist/
 out/
 
-logs
 
 # Misc
 .DS_Store
@@ -41,7 +40,16 @@ yarn-error.log*
 ehthumbs.db
 Thumbs.db
 
+# Maven build directories
 /apps-common/target/
 /app1/target/
 /app2/target/
 /app3/target/
+**/target/
+
+# Log files and directories
+logs/
+**/logs/
+*.log
+log/
+**/log/
