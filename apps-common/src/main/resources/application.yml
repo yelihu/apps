@@ -1,0 +1,14 @@
+# 公共服务模块默认配置
+common:
+  service:
+    hello-world-enabled: true
+    welcome-message: "欢迎使用公共服务模块!"
+
+# 默认嵌入式服务配置
+server:
+  port: 8090
+  
+# 日志配置
+logging:
+  level:
+    com.example.common: INFO 
