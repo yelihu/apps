@@ -1,0 +1,36 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Apps Frontend 前端应用
+
+## 技术栈
+- **React 18**: 用于构建用户界面的 JavaScript 库
+- **TypeScript**: 带有类型系统的 JavaScript 超集
+- **Ant Design 5**: 企业级 UI 组件库
+- **Vite**: 现代化的前端构建工具
+
+## 项目结构
+- [package.json](mdc:apps-frontend/package.json): 项目依赖和脚本定义
+- [vite.config.ts](mdc:apps-frontend/vite.config.ts): Vite 配置文件
+- [index.html](mdc:apps-frontend/index.html): HTML 入口模板
+- [src/App.tsx](mdc:apps-frontend/src/App.tsx): 主应用组件
+- [src/main.tsx](mdc:apps-frontend/src/main.tsx): 应用入口文件
+- [src/App.css](mdc:apps-frontend/src/App.css): 主应用样式
+- [src/index.css](mdc:apps-frontend/src/index.css): 全局样式
+
+## 开发指南
+- **安装依赖**: `cd apps-frontend && npm install`
+- **启动开发服务器**: `cd apps-frontend && npm run dev`
+- **构建生产版本**: `cd apps-frontend && npm run build`
+- **停止开发服务器**: 在终端按 `Ctrl+C` 或找到进程 ID 后用 `kill <进程ID>` 停止
+
+## 渐进式开发计划
+项目采用渐进式开发方法，按照 [frontend_development_plan.md](mdc:doc/frontend_development_plan.md) 中定义的四个阶段逐步实现：
+1. **阶段一**: 基础搭建与单服务集成
+2. **阶段二**: 引入路由与多页面/多服务雏形
+3. **阶段三**: 状态管理与高级 API 数据流
+4. **阶段四**: 代码优化、测试与进阶特性
+
+当前处于**阶段一**，已完成基础项目结构搭建，包含简单 React 组件和 Ant Design 集成。

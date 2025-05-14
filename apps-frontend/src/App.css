@@ -1,0 +1,21 @@
+/* Styles specific to the App component can go here */
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #f0f2f5; /* A light Ant Design-like background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #333; /* Darker text color for better readability */
+}
+
+.App-link {
+  color: #1677ff; /* Ant Design primary color */
+  margin: 0 5px;
+} 
