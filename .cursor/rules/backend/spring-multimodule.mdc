@@ -1,0 +1,72 @@
+---
+description: Spring Boot项目多模块项目开发规范，当书写pom文件处理依赖关系，以及构建spring项目的时候遵循此规则
+globs: 
+alwaysApply: false
+---
+# Spring Boot 多模块项目开发规范
+
+## 组件扫描规则
+
+### 主应用类配置
+
+在多模块Spring Boot项目中，主应用类必须明确声明扫描路径，以便发现其它模块中的组件：
+
+```java
+@SpringBootApplication(scanBasePackages = {"com.example.app1", "com.example.common"})
+public class App1Application {
+    // ...
+}
+```
+
+参考实现: [App1Application.java](mdc:app1/app1-start/src/main/java/com/example/app1/App1Application.java)
+
+### 测试类配置
+
+测试类同样需要配置组件扫描，确保能找到其它模块中的组件：
+
+```java
+@SpringBootTest
+@ComponentScan(basePackages = {"com.example.app1", "com.example.common"})
+public class SomeServiceTest {
+    // ...
+}
+```
+
+参考实现: [HelloWorldServiceTest.java](mdc:app1/app1-start/src/test/java/com/example/app1/test/HelloWorldServiceTest.java)
+
+## 模块设计原则
+
+### 共享模块
+
+- 使用独立的配置前缀避免冲突
+- 提供自动配置支持（META-INF/spring.factories）
+- 明确的服务接口和条件配置
+
+参考实现: [CommonServiceProperties.java](mdc:apps-common/src/main/java/com/example/common/config/CommonServiceProperties.java)
+
+### 配置覆盖
+
+应用模块可在自己的配置中覆盖共享模块的默认值：
+
+```yaml
+# 在应用模块中覆盖默认配置
+common:
+  service:
+    welcome-message: "来自App1的问候消息!"
+```
+
+参考实现: [application.yml](mdc:app1/app1-start/src/main/resources/application.yml)
+
+## 问题排查指南
+
+当遇到组件无法注入时，检查：
+1. 是否正确配置了包扫描路径
+2. 共享模块是否正确声明为依赖
+3. 测试类是否正确配置了组件扫描
+
+## 最佳实践
+
+- 使用自动配置简化模块集成
+- 使用条件化配置允许灵活使用服务
+- 明确文档说明如何使用共享模块
+
