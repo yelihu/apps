@@ -1,0 +1,1581 @@
+.ai-data-query-container {
+  height: 100vh;
+  display: flex;
+  overflow: hidden; /* 防止整体滚动 */
+}
+
+/* 暗黑模式全局变量 */
+:root {
+  --bg-color: #fff;
+  --text-color: rgba(0, 0, 0, 0.85);
+  --border-color: #f0f0f0;
+  --sider-bg: #fff;
+  --header-bg: #fff;
+  --content-bg: #f5f5f5;
+  --card-bg: #fff;
+  --hover-bg: #fafafa;
+  --message-bg: #f0f0f0;
+  --user-message-bg: #e6f7ff;
+  --divider-color: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --scrollbar-track: #f5f5f5;
+  --scrollbar-thumb: #d9d9d9;
+  --secondary-text: #999;
+  --light-text: #bbb;
+  --primary-color: #1677ff; /* Ant Design 主色调 */
+}
+
+/* 暗黑模式样式变量 */
+.dark-theme {
+  --bg-color: #141414;
+  --text-color: rgba(255, 255, 255, 0.85);
+  --border-color: #303030;
+  --sider-bg: #1f1f1f;
+  --header-bg: #1f1f1f;
+  --content-bg: #0a0a0a;
+  --card-bg: #262626;
+  --hover-bg: #303030;
+  --message-bg: #303030;
+  --user-message-bg: #153450; /* 暗黑模式下用户消息背景 */
+  --divider-color: #303030;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --scrollbar-track: #141414;
+  --scrollbar-thumb: #434343;
+  --secondary-text: rgba(255, 255, 255, 0.45);
+  --light-text: rgba(255, 255, 255, 0.3);
+  --primary-color: #177ddc; /* 暗黑模式下的主色调 */
+
+  color: var(--text-color);
+}
+
+/* 聊天区域样式 */
+.chat-sider {
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  width: 400px;
+  flex-shrink: 0;
+  background-color: var(--sider-bg);
+}
+
+.chat-header {
+  background: var(--header-bg);
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  height: auto;
+  line-height: normal;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+/* 统一头部图标样式 */
+.chat-header .anticon {
+  font-size: 18px;
+}
+
+.chat-header .ant-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+
+.chat-header .menu-button {
+  font-size: 16px;
+  height: 36px;
+  width: 36px;
+}
+
+.chat-header .ant-switch {
+  min-width: 44px;
+  height: 22px;
+}
+
+.chat-header .ant-switch .anticon {
+  font-size: 14px;
+}
+
+.chat-content {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 16px;
+  padding-bottom: 16px; /* 调整与输入框的间距 */
+  height: calc(100vh - 64px - 70px); /* 视口高度减去头部和输入框高度 (输入框约70px高) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  position: relative;
+  z-index: 1;
+  background-color: var(--sider-bg);
+}
+
+.chat-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-content::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+.chat-content::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.chat-list {
+  width: 100%;
+}
+
+.chat-item {
+  padding: 8px 0;
+}
+
+.message-content {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.chat-item.user .message-content {
+  flex-direction: row-reverse;
+}
+
+/* 头像样式 */
+.avatar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.robot-avatar {
+  background-color: #69c0ff !important; /* 浅蓝色 */
+}
+
+.user-avatar {
+  background-color: #ffd591 !important; /* 浅橙色 */
+}
+
+.dark-theme .robot-avatar {
+  background-color: #40a9ff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dark-theme .user-avatar {
+  background-color: #ffa940 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.message-text {
+  margin: 0 12px;
+  background-color: #e6f0f6;
+  padding: 10px 12px;
+  border-radius: 6px;
+  max-width: 80%;
+  word-break: break-word;
+  color: var(--text-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e1e1e1;
+}
+
+.dark-theme .message-text {
+  background-color: #303030;
+  border: 1px solid #3a3a3a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.chat-item.user .message-text {
+  background-color: #e6f7ff;
+  border: 1px solid #c2e3ff;
+}
+
+.dark-theme .chat-item.user .message-text {
+  background-color: #153450;
+  border: 1px solid #164a73;
+}
+
+/* 修改：聊天输入区域容器样式 */
+.chat-input-container {
+  padding: 12px 16px; /* 调整内边距 */
+  background: var(--sider-bg);
+  border-top: 1px solid var(--border-color);
+  position: relative; /* 改为 relative，不再固定到底部 */
+  width: 100%;
+  z-index: 10;
+  box-shadow: 0 -2px 8px var(--shadow-color);
+  display: flex; /* 使用flex布局确保Input.Search撑满 */
+  align-items: center; /* 垂直居中 */
+}
+
+/* 修改：聊天搜索框样式 */
+.chat-search-input {
+  width: 100%;
+}
+
+/* 确保搜索按钮在暗黑模式下颜色正确 */
+.dark-theme .chat-search-input .ant-input-search-button {
+  background-color: var(--primary-color) !important; /* 使用 !important 提高优先级 */
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+.dark-theme .chat-search-input .ant-input-search-button:hover {
+  background-color: #3893e0 !important; /* 暗黑模式悬停颜色 */
+  border-color: #3893e0 !important;
+}
+
+.chat-search-input .ant-input-search-button {
+   height: 40px; /* 与 large size 的输入框高度一致 */
+}
+
+.chat-search-input .ant-input {
+  height: 40px; /* 与 large size 的输入框高度一致 */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+.dark-theme .chat-search-input .ant-input {
+  background-color: var(--sider-bg); /* 暗黑模式下输入框背景 */
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+
+/* 结果区域样式 */
+.result-container {
+  padding: 24px;
+  background: var(--content-bg);
+  overflow-y: auto;
+  flex: 1;
+  height: 100vh;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.result-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.result-container::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+.result-container::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.result-history {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-card {
+  margin-bottom: 16px;
+  background-color: var(--card-bg);
+  box-shadow: 0 1px 2px var(--shadow-color);
+  overflow: visible;
+}
+
+.result-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-time {
+  font-size: 12px;
+  color: var(--secondary-text);
+  font-weight: normal;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-button,
+.fullscreen-button {
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+.action-button:hover,
+.fullscreen-button:hover {
+  color: var(--primary-color); /* 使用CSS变量 */
+  background-color: var(--hover-bg);
+}
+
+.result-card {
+  height: auto;
+}
+
+.result-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.result-loading-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 0;
+  margin-top: 16px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dark-theme .result-loading-bottom {
+  background-color: #262626;
+  border: 1px solid #303030;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.result-content {
+  padding: 0;
+}
+
+.empty-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--secondary-text);
+}
+
+.tip-text {
+  font-size: 14px;
+  color: var(--light-text);
+  margin-top: 8px;
+}
+
+.list-result {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-header {
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.list-item {
+  transition: all 0.3s;
+  padding: 12px 0;
+}
+
+.list-item:hover {
+  background-color: var(--hover-bg);
+}
+
+.item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-price {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.item-tags {
+  margin-top: 8px;
+}
+
+/* 表格样式 */
+.table-result {
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  border: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .table-result {
+  background-color: #1f1f1f;
+  border: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* 改进表格布局 */
+.ant-table {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.ant-table-container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+/* 确保表头行没有多余间距 */
+.ant-table-thead {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.ant-table-thead > tr {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 设置表格顶部边距为0 */
+.table-result .ant-table-wrapper {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.result-card .ant-card-body {
+  padding: 16px !important;
+  overflow: hidden; /* 确保内容不溢出 */
+}
+
+/* 表格标题行样式调整 */
+.result-card .table-header {
+  margin: 0;
+  padding: 16px 20px; /* 增加内边距使标题更加突出 */
+  border-bottom: none;
+  background-color: rgba(0, 0, 0, 0.01); /* 轻微的背景色区分 */
+}
+
+.dark-theme .result-card .table-header {
+  background-color: rgba(255, 255, 255, 0.02); /* 暗黑模式下的背景色 */
+}
+
+/* 调整表格外观，使其与卡片融合 */
+.data-table .ant-table-container {
+  border-radius: 0 !important;
+}
+
+.data-table .ant-pagination {
+  margin: 16px !important;
+  padding: 8px 16px !important;
+  background-color: rgba(0, 0, 0, 0.01); /* 与标题行背景色一致 */
+  border-top: 1px solid rgba(0, 0, 0, 0.06); /* 添加顶部分隔线 */
+}
+
+.dark-theme .data-table .ant-pagination {
+  background-color: rgba(255, 255, 255, 0.02); /* 暗黑模式下的背景色 */
+  border-top: 1px solid rgba(255, 255, 255, 0.06); /* 暗黑模式下的分隔线 */
+}
+
+/* 移除表格组件的边框 */
+.ant-table {
+  border: none !important;
+}
+
+.ant-table-container {
+  border-top: none !important;
+  outline-top: none !important;
+}
+
+/* 增强表格样式 - 解决白色边框问题 */
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table table {
+  border-spacing: 0 !important;
+  border-collapse: collapse !important; /* 改回collapse确保没有间隙 */
+  border: none !important;
+}
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  border: none !important;
+  outline: 1px solid #f0f0f0 !important;
+  background-clip: padding-box !important;
+}
+
+.dark-theme .ant-table-thead > tr > th,
+.dark-theme .ant-table-tbody > tr > td {
+  border: none !important;
+  outline: 1px solid #303030 !important;
+  background-clip: padding-box !important;
+}
+
+/* 表头样式增强 */
+.ant-table-thead > tr > th {
+  border-top: none !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding: 14px 16px !important;
+  background-color: #f7f7f7 !important;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  transition: background-color 0.3s ease;
+}
+
+.dark-theme .ant-table-thead > tr > th {
+  border-bottom: 1px solid #303030 !important;
+  background-color: #242424 !important;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 表格排序图标优化 */
+.ant-table-column-sorter {
+  margin-left: 4px;
+}
+
+/* 排序箭头激活状态 */
+.ant-table-column-sorter-up.active,
+.ant-table-column-sorter-down.active {
+  color: var(--primary-color) !important;
+}
+
+/* 确保表头右侧不显示多余边框 */
+.ant-table-container table > thead > tr:first-child th:last-child {
+  border-right: none !important;
+}
+
+/* 表头与内容的边框分隔线 */
+.ant-table-thead > tr > th {
+  border-bottom: 2px solid #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-thead > tr > th {
+  border-bottom: 2px solid #303030 !important;
+}
+
+/* 统一表格边框样式 */
+.data-table .ant-table {
+  border-radius: 0 !important;
+  border-collapse: collapse !important; /* 确保边框合并 */
+}
+
+.data-table .ant-table-container {
+  border-radius: 0 !important;
+}
+
+.data-table .ant-table-content {
+  border-radius: 0 !important;
+}
+
+.data-table .ant-table-thead > tr:first-child > th:first-child {
+  border-top-left-radius: 0 !important;
+}
+
+.data-table .ant-table-thead > tr:first-child > th:last-child {
+  border-top-right-radius: 0 !important;
+}
+
+.data-table .ant-table-tbody > tr:last-child > td:first-child {
+  border-bottom-left-radius: 0 !important;
+}
+
+.data-table .ant-table-tbody > tr:last-child > td:last-child {
+  border-bottom-right-radius: 0 !important;
+}
+
+/* 修复表格单元格边框 */
+.data-table .ant-table-cell {
+  border-color: #f0f0f0 !important; /* 亮色模式下的边框颜色 */
+  border: none !important; /* 移除边框，使用outline代替 */
+}
+
+.dark-theme .data-table .ant-table-cell {
+  border-color: #303030 !important; /* 暗黑模式下的边框颜色 */
+  border: none !important; /* 移除边框，使用outline代替 */
+}
+
+/* 设置表格边框样式 */
+.data-table .ant-table-cell {
+  /* 移除之前的border定义 */
+  border-right: none;
+  border-bottom: none;
+}
+
+.table-row {
+  transition: all 0.3s;
+}
+
+.table-row:hover {
+  background-color: var(--hover-bg) !important;
+}
+
+/* 人员信息单元格样式 */
+.staff-info-cell {
+  display: flex;
+  align-items: center;
+}
+
+.staff-avatar {
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.staff-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.staff-name {
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.staff-position {
+  font-size: 12px;
+  color: var(--secondary-text);
+  line-height: 1.2;
+}
+
+/* 绩效单元格样式 */
+.performance-cell {
+  text-align: center;
+}
+
+.performance-value {
+  font-weight: 500;
+  display: inline-block;
+  padding: 4px 10px !important; /* 增加内边距 */
+  border-radius: 16px !important; /* 增大圆角 */
+  color: #fff;
+  min-width: 46px; /* 设置最小宽度 */
+  text-align: center;
+}
+
+.performance-value.excellent {
+  background-color: #52c41a;
+}
+
+.performance-value.good {
+  background-color: #1677ff;
+}
+
+.performance-value.average {
+  background-color: #faad14;
+}
+
+.performance-value.poor {
+  background-color: #ff4d4f;
+}
+
+/* 排名样式 */
+.ranking {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trophy {
+  margin-right: 4px;
+  font-size: 14px;
+}
+
+.trophy.rank-1 {
+  color: #ffc53d;
+}
+
+.trophy.rank-2 {
+  color: #bfbfbf;
+}
+
+.trophy.rank-3 {
+  color: #b37feb;
+}
+
+/* 标签容器适配表格宽度 */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* 卡片紧凑样式 */
+.result-card.history-card {
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  background-color: #ffffff;
+  border: none; /* 移除卡片边框 */
+  overflow: hidden; /* 确保内容不溢出 */
+  border-radius: 8px; /* 增加卡片圆角 */
+}
+
+.dark-theme .result-card.history-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  background-color: #262626;
+  border: none; /* 移除卡片边框 */
+}
+
+.result-card .ant-card-head {
+  padding: 0 16px;
+  min-height: 40px;
+  background-color: #1677ff;
+  color: white;
+  border-bottom: none;
+}
+
+.dark-theme .result-card .ant-card-head {
+  background-color: #177ddc;
+}
+
+.result-card .ant-card-head-title {
+  padding: 8px 0;
+  color: white;
+}
+
+.result-card .ant-card-extra {
+  padding: 8px 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.result-card.history-card .ant-typography {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.result-card .card-actions .ant-btn-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.result-card .card-actions .ant-btn-text:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.result-card .ant-card-body {
+  padding: 0 !important; /* 移除卡片内边距 */
+}
+
+.result-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-title-content {
+  display: flex;
+  align-items: baseline;
+}
+
+.card-subtitle {
+  margin-left: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: normal;
+}
+
+.result-time {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: normal;
+  margin-right: 8px;
+}
+
+/* 全屏卡片样式 */
+.result-card.fullscreen {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  margin: 0;
+  z-index: 1000;
+  height: calc(100vh - 40px);
+  width: calc(100vw - 40px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.dark-theme .result-card.fullscreen {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.result-card.fullscreen .ant-card-body {
+  flex: 1;
+  overflow: auto;
+  padding: 16px 24px;
+}
+
+.result-card.fullscreen .table-result {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-card.fullscreen .data-table {
+  flex: 1;
+}
+
+.result-card.fullscreen .ant-table-wrapper {
+  height: 100%;
+}
+
+.result-card.fullscreen .ant-spin-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-card.fullscreen .ant-table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-card.fullscreen .ant-table-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-card.fullscreen .ant-table-content {
+  flex: 1;
+}
+
+.result-content {
+  padding: 0;
+}
+
+/* 结果卡片操作按钮 */
+.card-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-button,
+.fullscreen-button {
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+.action-button:hover,
+.fullscreen-button:hover {
+  color: var(--primary-color);
+  background-color: var(--hover-bg);
+}
+
+/* 暗黑模式表格样式 */
+.dark-theme .ant-table {
+  background-color: #1f1f1f;
+  color: var(--text-color);
+}
+
+.dark-theme .ant-table-thead > tr > th {
+  background-color: rgba(255, 255, 255, 0.04) !important; /* 更暗的表头 */
+  color: rgba(255, 255, 255, 0.85);
+  border-color: #303030 !important;
+}
+
+.dark-theme .ant-table-tbody > tr > td {
+  border-color: #303030 !important;
+  color: var(--text-color);
+  border-bottom: 1px solid #303030 !important;
+}
+
+.dark-theme .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: rgba(255, 255, 255, 0.08) !important; /* 更明显的悬浮效果 */
+}
+
+.dark-theme .ant-table-tbody > tr.ant-table-row-selected > td {
+  background-color: #111b26 !important; /* 更深的选中行背景 */
+  border-color: #303030 !important;
+}
+
+/* 确保表格单元格无间隙 */
+.ant-table {
+  border-spacing: 0 !important;
+}
+
+/* 表格边框颜色 */
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  border-color: #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-thead > tr > th,
+.dark-theme .ant-table-tbody > tr > td {
+  border-color: #303030 !important;
+}
+
+/* 表格边框合并样式 */
+.ant-table table {
+  border-collapse: collapse !important;
+}
+
+/* 防止表格单元格间出现白线 */
+.ant-table-cell-fix-left,
+.ant-table-cell-fix-right {
+  background-color: inherit !important;
+}
+
+.dark-theme .ant-table-cell-fix-left,
+.dark-theme .ant-table-cell-fix-right {
+  background-color: #1f1f1f !important;
+}
+
+/* 确保固定列与背景色匹配 */
+.ant-table-cell-fix-left::after,
+.ant-table-cell-fix-right::after {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.dark-theme .ant-table-cell-fix-left::after,
+.dark-theme .ant-table-cell-fix-right::after {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 恢复被误删的暗黑模式表格样式 */
+.dark-theme .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, 
+.dark-theme .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, 
+.dark-theme .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td, 
+.dark-theme .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark-theme .ant-table-column-sorter {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dark-theme .ant-table-column-sorter-up.active,
+.dark-theme .ant-table-column-sorter-down.active {
+  color: #177ddc;
+}
+
+.dark-theme .ant-pagination-item {
+  background-color: transparent;
+  border-color: #434343;
+}
+
+.dark-theme .ant-pagination-item a {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark-theme .ant-pagination-item-active {
+  background-color: transparent;
+  border-color: #177ddc;
+}
+
+.dark-theme .ant-pagination-item-active a {
+  color: #177ddc;
+}
+
+.dark-theme .ant-pagination-prev .ant-pagination-item-link,
+.dark-theme .ant-pagination-next .ant-pagination-item-link {
+  background-color: transparent;
+  border-color: #434343;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark-theme .ant-pagination-disabled .ant-pagination-item-link {
+  color: rgba(255, 255, 255, 0.25);
+  border-color: #434343;
+}
+
+.dark-theme .performance-value.excellent {
+  background-color: #389e0d;
+}
+
+.dark-theme .performance-value.good {
+  background-color: #177ddc;
+}
+
+.dark-theme .performance-value.average {
+  background-color: #d89614;
+}
+
+.dark-theme .performance-value.poor {
+  background-color: #cf1322;
+}
+
+.dark-theme .trophy.rank-1 {
+  color: #d8bd14;
+}
+
+.dark-theme .trophy.rank-2 {
+  color: #a6a6a6;
+}
+
+.dark-theme .trophy.rank-3 {
+  color: #9254de;
+}
+
+/* 暗黑模式下的Ant Design组件样式覆盖 */
+.dark-theme .ant-layout {
+  background: var(--bg-color);
+}
+
+.dark-theme .ant-typography,
+.dark-theme .ant-typography h1,
+.dark-theme .ant-typography h2,
+.dark-theme .ant-typography h3,
+.dark-theme .ant-typography h4,
+.dark-theme .ant-typography h5 {
+  color: var(--text-color);
+}
+
+.dark-theme .ant-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+.dark-theme .ant-card-head {
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.dark-theme .ant-divider {
+  border-color: var(--border-color);
+}
+
+.dark-theme .ant-btn-text {
+  color: var(--text-color);
+}
+
+.dark-theme .ant-btn-text:hover {
+  background: var(--hover-bg);
+}
+
+.dark-theme .ant-list-item {
+  border-color: var(--border-color);
+}
+
+.dark-theme .ant-list-item-meta-title {
+  color: var(--text-color);
+}
+
+.dark-theme .ant-list-item-meta-description {
+  color: var(--secondary-text);
+}
+
+.dark-theme .ant-tag {
+  border-color: transparent; /* 或者 var(--border-color) 如果需要边框 */
+  /* 对于特定颜色的Tag，可能需要单独覆盖 */
+}
+
+.dark-theme .ant-empty-description {
+  color: var(--secondary-text);
+}
+
+.dark-theme .ant-modal-close:hover {
+    background-color: var(--hover-bg);
+}
+
+/* 主题切换按钮样式 */
+.theme-switch {
+  margin-right: 12px;
+}
+
+/* 动画过渡效果 - 移除全局*选择器，避免性能问题，在需要的组件上单独添加 */
+.chat-sider,
+.chat-header,
+.chat-content,
+.message-text,
+.chat-input-container,
+.result-container,
+.history-card,
+.ant-layout,
+.ant-card,
+.ant-card-head,
+.ant-btn-text,
+.ant-list-item-meta-title,
+.ant-list-item-meta-description,
+.ant-empty-description,
+.ant-modal-content,
+.ant-modal-header,
+.ant-modal-title,
+.ant-modal-close,
+.chat-search-input .ant-input,
+.chat-search-input .ant-input-search-button {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 确保暗黑模式下tooltip的颜色也正确 */
+.dark-theme .ant-tooltip-inner {
+  background-color: #434343; /* 一个较深的背景 */
+  color: rgba(255, 255, 255, 0.85);
+}
+.dark-theme .ant-tooltip-arrow::before {
+  background-color: #434343;
+}
+
+/* 表格线设置 */
+.ant-table-container::after,
+.ant-table-container::before {
+  display: none !important;
+}
+
+/* 确保表格行在悬停时不出现白边框 */
+.ant-table-tbody > tr:hover > td {
+  outline-color: #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-tbody > tr:hover > td {
+  outline-color: #303030 !important;
+}
+
+/* 增强表格体验 */
+.ant-table {
+  font-size: 14px !important;
+}
+
+/* 表格奇偶行对比色，增强可读性 */
+.ant-table-tbody > tr:nth-child(odd) > td {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+.dark-theme .ant-table-tbody > tr:nth-child(odd) > td {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* 表格单元格样式优化 */
+.ant-table-tbody > tr > td {
+  padding: 12px 16px !important; /* 统一单元格内边距 */
+  transition: background-color 0.3s ease;
+}
+
+/* 表格行高设置 */
+.ant-table-tbody > tr {
+  height: 52px; /* 统一行高 */
+}
+
+/* 表格首列和末列内边距调整 */
+.ant-table-tbody > tr > td:first-child {
+  padding-left: 16px !important; /* 调整首列左侧内边距 */
+}
+
+.ant-table-tbody > tr > td:last-child {
+  padding-right: 16px !important; /* 调整末列右侧内边距 */
+}
+
+/* 表头首列和末列内边距调整 */
+.ant-table-thead > tr > th:first-child {
+  padding-left: 16px !important;
+}
+
+.ant-table-thead > tr > th:last-child {
+  padding-right: 16px !important;
+}
+
+/* 表格最后一行去除底部边框 */
+.ant-table-tbody > tr:last-child > td {
+  border-bottom: none !important;
+}
+
+/* 优化性能数值圆标的显示 */
+.performance-value {
+  font-weight: 500;
+  display: inline-block;
+  padding: 4px 10px !important; /* 增加内边距 */
+  border-radius: 16px !important; /* 增大圆角 */
+  color: #fff;
+  min-width: 46px; /* 设置最小宽度 */
+  text-align: center;
+}
+
+/* 添加表格卡片悬停效果 */
+.result-card.history-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-2px);
+}
+
+.dark-theme .result-card.history-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 确保表格头部无上边距 */
+.ant-table-thead {
+  border-top: none !important;
+  outline-top: none !important;
+}
+
+/* 消除表格上边缘的间隙 */
+.ant-table {
+  margin-top: 0 !important;
+  border-top: none !important;
+  outline-top: none !important;
+}
+
+/* 表格与父容器的边距调整 */
+.data-table {
+  overflow: auto;
+  border-radius: 8px;
+  background: transparent;
+  margin: 0;
+}
+
+/* 表格行样式 */
+.ant-table-tbody > tr {
+  height: 52px;
+}
+
+/* 表格行高设置 */
+.ant-table-tbody > tr > td {
+  padding: 12px 16px !important; /* 统一单元格内边距 */
+  transition: background-color 0.3s ease;
+}
+
+/* 修复表格嵌套问题，防止表格边缘有双重边框 */
+.ant-table-wrapper {
+  margin: 0 !important;
+}
+
+.ant-table {
+  border: none !important;
+}
+
+/* 卡片内容区域的边距调整 */
+.result-card .ant-card-body {
+  padding: 16px !important;
+}
+
+/* 表格容器与卡片边距调整 */
+.result-card .table-result {
+  margin-bottom: 0;
+}
+
+/* 表格头部标题 */
+.table-header {
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* 数据表格容器样式 */
+.data-table {
+  overflow: auto;
+  border-radius: 8px;
+  background: transparent;
+}
+
+/* 消除表格与容器之间的间隙 */
+.ant-table-wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 修复表格表头和数据行之间的空白 */
+.ant-table table {
+  border-spacing: 0 !important;
+  border-collapse: collapse !important; /* 确保没有间隙 */
+  border: none !important;
+}
+
+/* 确保表格行之间没有间隙 */
+.ant-table-tbody > tr > td {
+  border-spacing: 0 !important;
+  border-top: none !important;
+  margin-top: 0 !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+/* 确保表头和数据行之间无间隙 */
+.ant-table-thead + .ant-table-tbody {
+  margin-top: 0 !important;
+  border-top: none !important;
+}
+
+/* 强制设置表格边框模式 */
+.ant-table {
+  border-collapse: collapse !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* 修复表格行样式 */
+.ant-table-tbody > tr {
+  border-top: none !important;
+  margin-top: 0 !important;
+}
+
+/* 表头单元格底部边框样式 */
+.ant-table-thead > tr > th {
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-thead > tr > th {
+  border-bottom: 1px solid #303030 !important;
+}
+
+/* 修复可能引起间隙的样式 */
+.ant-table-container::before,
+.ant-table-container::after {
+  display: none !important;
+}
+
+/* 修复表格内部可能的浮动元素 */
+.ant-table-tbody {
+  display: table-row-group !important;
+}
+
+.ant-table-thead {
+  display: table-header-group !important;
+}
+
+/* 定位表头和数据行之间的空白行问题 */
+.ant-table-thead > tr,
+.ant-table-tbody > tr:first-child {
+  position: relative !important;
+}
+
+.ant-table-thead > tr:after {
+  content: none !important;
+  display: none !important;
+}
+
+.ant-table-thead > tr > th:before {
+  display: none !important;
+}
+
+/* 移除固定表格可能导致的问题 */
+.ant-table-fixed-header > .ant-table-content > .ant-table-scroll > .ant-table-body {
+  margin-top: 0 !important;
+}
+
+/* 移除表格可能的动画效果，避免间隙 */
+.ant-table-tbody > tr,
+.ant-table-thead > tr {
+  transition: none !important;
+}
+
+/* 清除所有可能的表格标记，使用outline代替 */
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table-tbody > tr > td {
+  background: transparent !important;
+}
+
+/* 对齐首个数据行 */
+.ant-table-tbody > tr:first-child > td {
+  padding-top: 12px !important;
+}
+
+/* 严格控制表头最后一行的边框 */
+.ant-table-thead > tr:last-child > th {
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-thead > tr:last-child > th {
+  border-bottom: 1px solid #303030 !important;
+}
+
+/* 确保表格中没有空白的tr */
+.ant-table-tbody:empty:before,
+.ant-table-tbody > tr:empty:before {
+  content: none !important;
+  display: none !important;
+  height: 0 !important;
+}
+
+/* 强制调整表格渲染结构，解决空白行问题 */
+.ant-table {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.ant-table-container {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.ant-table-content {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 处理表格主体结构 */
+.ant-table-body {
+  display: block !important;
+}
+
+/* 强制清除表格中所有可能的空白元素 */
+.ant-table-measure-row,
+.ant-table-expanded-row-fixed,
+.ant-table tr.ant-table-measure-row > td,
+.ant-table-tbody > tr.ant-table-placeholder,
+.ant-table-tbody > tr.ant-table-row-none {
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  visibility: hidden !important;
+  display: none !important;
+}
+
+/* 针对表格特定元素 */
+.ant-table-tbody tr.ant-table-placeholder {
+  display: none !important;
+  height: 0 !important;
+}
+
+/* 移除表格组件可能添加的额外元素 */
+.ant-table-wrapper .ant-spin-nested-loading .ant-spin-container::after {
+  display: none !important;
+}
+
+/* 确保表头与首行紧邻 */
+.ant-table-tbody > tr:first-child {
+  margin-top: -1px !important; /* 负边距尝试 */
+}
+
+/* 尝试严格控制表格中的每个元素 */
+.ant-table-thead,
+.ant-table-tbody,
+.ant-table-summary {
+  transition: none !important;
+}
+
+/* 修复表格左侧边框问题 */
+.ant-table-container,
+.ant-table-content,
+.ant-table table {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* 移除表格所有单元格的左边框 - 合并重复定义 */
+.ant-table-thead > tr > th:first-child,
+.ant-table-tbody > tr > td:first-child {
+  border-left: none !important;
+  outline-left: none !important;
+  padding-left: 20px !important;
+}
+
+/* 修复表格容器左侧的边界 */
+.ant-table-wrapper,
+.ant-table,
+.ant-table-container,
+.ant-table-content {
+  border-left: none !important;
+  outline-left: none !important;
+}
+
+/* 移除表格外边框 */
+.table-result {
+  border: none !important;
+  outline: none !important;
+}
+
+/* 确保表格完全没有边框 */
+.ant-table {
+  border: none !important;
+  outline: none !important;
+}
+
+/* 处理表格边框在暗色模式下的颜色 */
+.dark-theme .ant-table-tbody > tr > td {
+  border-color: #303030 !important;
+  outline-color: #303030 !important;
+}
+
+/* 确保首列单元格没有左边框 */
+.ant-table-thead > tr > th:first-child,
+.ant-table-tbody > tr > td:first-child {
+  border-left: none !important;
+  outline-left: none !important;
+}
+
+/* 表格单元格边框设置 */
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  border: none !important;
+  position: relative !important;
+}
+
+/* 使用伪元素控制边框，这样可以精确控制位置和显示 */
+.ant-table-thead > tr > th:not(:last-child)::after,
+.ant-table-tbody > tr > td:not(:last-child)::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  height: 100% !important;
+  width: 1px !important;
+  background-color: #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-thead > tr > th:not(:last-child)::after,
+.dark-theme .ant-table-tbody > tr > td:not(:last-child)::after {
+  background-color: #303030 !important;
+}
+
+/* 表头底部边框 */
+.ant-table-thead > tr > th::before {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 1px !important;
+  background-color: #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-thead > tr > th::before {
+  background-color: #303030 !important;
+}
+
+/* 数据行底部边框 */
+.ant-table-tbody > tr:not(:last-child) > td::before {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 1px !important;
+  background-color: #f0f0f0 !important;
+}
+
+.dark-theme .ant-table-tbody > tr:not(:last-child) > td::before {
+  background-color: #303030 !important;
+}
+
+/* 表格容器样式 */
+.table-result {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.dark-theme .table-result {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 表格整体样式 */
+.ant-table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: none !important;
+}
+
+/* 移除所有可能导致边框问题的元素 */
+.ant-table-measure-row,
+.ant-table-expanded-row,
+.ant-table-row-expand-icon,
+.ant-table-cell-fix-left-last::after,
+.ant-table-cell-fix-right-first::after {
+  display: none !important;
+}
+
+/* 优化结果卡片的内边距，去掉左右内边距 */
+.result-card .ant-card-body {
+  padding: 16px !important;
+  overflow: hidden; /* 确保内容不溢出 */
+}

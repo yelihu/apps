@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, DatePicker, version, message } from 'antd';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './App.css'; // 可选的组件特定样式
 
 function App() {
@@ -59,6 +60,17 @@ function App() {
         <p style={{ fontSize: '16px', marginTop: '20px' }}>
           编辑 <code>apps-frontend/src/App.tsx</code> 文件并保存，查看热更新效果。
         </p>
+
+        {/* 添加指向Demo页面和AI数据查询页面的超链接 */}
+        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+          <Link to="/demo" style={{ fontSize: '18px', color: '#1890ff', textDecoration: 'underline', marginRight: '20px' }}>
+            点击这里跳转到示例页面
+          </Link>
+          <Link to="/ai-data-query" style={{ fontSize: '18px', color: '#1890ff', textDecoration: 'underline' }}>
+            点击这里跳转到AI数据查询页面
+          </Link>
+        </div>
+        
         <div style={{ fontSize: '16px' }}>
         <a
           className="App-link"
