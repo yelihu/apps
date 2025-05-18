@@ -20,5 +20,11 @@
 6. 添加了 `logback-spring.xml`，配置了日志输出。
 7. 成功执行了 Maven 命令安装了父 POM 及所有子模块。
 
-> 下一步设计：app2和app3能够使用app1暴露出来的客户端，未来能够借助这个客户端的定义，执行RPC调用（选用[dubbo3](https://cn.dubbo.apache.org/zh-cn/?spm=5238cd80.47ee59c.0.0.96bdcd36IZXcRD)进行远程调用、[Nacos3](https://nacos.io/docs/v3.0/overview/?spm=5238cd80.47ee59c.0.0.96bdcd36IZXcRD)管理服务）
-> 
+
+
+### 2025-05-18 - 原型搭建
+搭建了原型，如下，前端部分完成基本骨架的搭建
+
+> 下一步:与后端服务对接
+
+![img.png](assets/img/img-demo-sample.png)
