@@ -1,3 +1,6 @@
+/* 引入阿里巴巴普惠体3.0 */
+/* 此字体已在index.css中全局引入，此处移除避免重复 */
+
 .ai-data-query-container {
   height: 100vh;
   display: flex;
@@ -15,7 +18,8 @@
   --card-bg: #fff;
   --hover-bg: #fafafa;
   --message-bg: #f0f0f0;
-  --user-message-bg: #e6f7ff;
+  --user-message-bg: #1677ff; /* 用户消息修改为蓝色背景 */
+  --user-message-text: #ffffff; /* 用户消息文字为白色 */
   --divider-color: #f0f0f0;
   --shadow-color: rgba(0, 0, 0, 0.05);
   --scrollbar-track: #f5f5f5;
@@ -23,6 +27,7 @@
   --secondary-text: #999;
   --light-text: #bbb;
   --primary-color: #1677ff; /* Ant Design 主色调 */
+  /* 移除此处的字体定义，避免与全局定义冲突 */
 }
 
 /* 暗黑模式样式变量 */
@@ -36,7 +41,8 @@
   --card-bg: #262626;
   --hover-bg: #303030;
   --message-bg: #303030;
-  --user-message-bg: #153450; /* 暗黑模式下用户消息背景 */
+  --user-message-bg: #1668dc; /* 暗黑模式下用户消息蓝色背景 */
+  --user-message-text: #ffffff; /* 暗黑模式下用户消息文字颜色 */
   --divider-color: #303030;
   --shadow-color: rgba(0, 0, 0, 0.3);
   --scrollbar-track: #141414;
@@ -190,13 +196,15 @@
 }
 
 .chat-item.user .message-text {
-  background-color: #e6f7ff;
-  border: 1px solid #c2e3ff;
+  background-color: var(--user-message-bg);
+  border: 1px solid var(--user-message-bg);
+  color: var(--user-message-text);
 }
 
 .dark-theme .chat-item.user .message-text {
-  background-color: #153450;
-  border: 1px solid #164a73;
+  background-color: var(--user-message-bg);
+  border: 1px solid var(--user-message-bg);
+  color: var(--user-message-text);
 }
 
 /* 修改：聊天输入区域容器样式 */
@@ -254,6 +262,7 @@
   height: 100vh;
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scroll-behavior: smooth; /* 添加平滑滚动 */
 }
 
 .result-container::-webkit-scrollbar {
@@ -269,17 +278,32 @@
   border-radius: 3px;
 }
 
+/* 结果历史容器样式 */
 .result-history {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* 正常顺序，最新的内容在底部 */
   gap: 16px;
 }
 
+/* 调整卡片边距和动画 */
 .history-card {
   margin-bottom: 16px;
   background-color: var(--card-bg);
-  box-shadow: 0 1px 2px var(--shadow-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
   overflow: visible;
+  animation: fadeInUp 0.3s ease-out forwards;
+}
+
+/* 添加从底部淡入动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .result-card-title {
@@ -323,42 +347,46 @@
   height: 100%;
 }
 
+/* 修改加载动画样式 */
 .result-loading-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 0;
-  margin-top: 16px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border: 1px solid #e8e8e8;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 24px 0;
+  margin-bottom: 16px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.3s ease-out forwards;
 }
 
 .dark-theme .result-loading-bottom {
   background-color: #262626;
-  border: 1px solid #303030;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.result-content {
-  padding: 0;
+/* 添加加载状态下卡片的过渡效果 */
+.result-card.history-card,
+.result-loading-bottom {
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.empty-result {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+/* 使用CSS变量控制加载动画的颜色 */
+.result-loading-bottom .ant-spin-dot-item {
+  background-color: var(--primary-color);
+}
+
+/* 加载文本样式 */
+.result-loading-bottom .ant-typography {
+  margin-top: 12px;
   color: var(--secondary-text);
 }
 
-.tip-text {
-  font-size: 14px;
-  color: var(--light-text);
-  margin-top: 8px;
+/* 调整卡片分隔线样式 */
+.result-card.history-card .ant-divider {
+  margin: 16px 0;
 }
 
 .list-result {
@@ -844,6 +872,21 @@
 
 .result-content {
   padding: 0;
+}
+
+.empty-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--secondary-text);
+}
+
+.tip-text {
+  font-size: 14px;
+  color: var(--light-text);
+  margin-top: 8px;
 }
 
 /* 结果卡片操作按钮 */
@@ -1578,4 +1621,26 @@
 .result-card .ant-card-body {
   padding: 16px !important;
   overflow: hidden; /* 确保内容不溢出 */
+}
+
+/* 添加加载状态下卡片的过渡效果 */
+.result-card.history-card,
+.result-loading-bottom {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 使用CSS变量控制加载动画的颜色 */
+.result-loading-bottom .ant-spin-dot-item {
+  background-color: var(--primary-color);
+}
+
+/* 加载文本样式 */
+.result-loading-bottom .ant-typography {
+  margin-top: 12px;
+  color: var(--secondary-text);
+}
+
+/* 调整卡片分隔线样式 */
+.result-card.history-card .ant-divider {
+  margin: 16px 0;
 }

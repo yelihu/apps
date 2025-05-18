@@ -1,12 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* 引入阿里巴巴普惠体3.0，使用本地字体文件 */
+@font-face {
+  font-family: "阿里巴巴普惠体 3.0";
+  src: url("/fonts/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2") format("woff2"),
+       url("/fonts/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff") format("woff"),
+       url("/fonts/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 引入粗体版本 */
+@font-face {
+  font-family: "阿里巴巴普惠体 3.0";
+  src: url("/fonts/AlibabaPuHuiTi-3-75-SemiBold/AlibabaPuHuiTi-3-75-SemiBold.woff2") format("woff2"),
+       url("/fonts/AlibabaPuHuiTi-3-75-SemiBold/AlibabaPuHuiTi-3-75-SemiBold.woff") format("woff"),
+       url("/fonts/AlibabaPuHuiTi-3-75-SemiBold/AlibabaPuHuiTi-3-75-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 引入中等粗细版本 */
+@font-face {
+  font-family: "阿里巴巴普惠体 3.0";
+  src: url("/fonts/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2") format("woff2"),
+       url("/fonts/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff") format("woff"),
+       url("/fonts/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-family: "阿里巴巴普惠体 3.0", "Alibaba PuHuiTi 3.0", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: "阿里巴巴普惠体 3.0", "Alibaba PuHuiTi 3.0", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 确保所有元素使用同一字体 */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, 
+abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, 
+strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, 
+label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, 
+embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, 
+time, mark, audio, video {
+  font-family: "阿里巴巴普惠体 3.0", "Alibaba PuHuiTi 3.0", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* 应用到Ant Design组件 */
+.ant-typography, .ant-btn, .ant-input, .ant-select, .ant-dropdown-menu, .ant-modal-title, 
+.ant-table, .ant-card-head-title, .ant-tabs-tab, .ant-menu-item, .ant-modal-content, 
+.ant-message, .ant-notification, .ant-popover-inner-content, .ant-tooltip-inner, 
+.ant-form-item-label > label, .ant-statistic-title, .ant-statistic-content, 
+.ant-descriptions-item-label, .ant-descriptions-item-content {
+  font-family: "阿里巴巴普惠体 3.0", "Alibaba PuHuiTi 3.0", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif !important;
 }
 
 code {

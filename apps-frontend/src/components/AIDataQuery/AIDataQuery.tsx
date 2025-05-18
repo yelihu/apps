@@ -99,11 +99,13 @@ const AIDataQuery: React.FC = () => {
     }
   }, [messages]);
 
+  // 当状态发生变化时处理滚动
   useEffect(() => {
-    if (resultContainerRef.current && queryResults.length > 0) {
+    if (resultContainerRef.current && (loading || queryResults.length > 0)) {
+      // 当有加载或新结果时，滚动到底部
       resultContainerRef.current.scrollTop = resultContainerRef.current.scrollHeight;
     }
-  }, [queryResults]);
+  }, [loading, queryResults]);
 
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
@@ -524,77 +526,79 @@ const AIDataQuery: React.FC = () => {
             <p className="tip-text">提示：尝试输入"查询团队业绩"、"销售部业绩排名"或"研发团队绩效"</p>
           </div>
         ) : (
-          <div className="result-history">
-            {queryResults.map((result, index) => {
-              const listData = result.type === 'list' ? (result.data as ListData) : null;
-              const isFullscreen = fullscreenResult === result.id;
-              
-              return (
-                <Card
-                  key={result.id}
-                  className={`result-card history-card ${isFullscreen ? 'fullscreen' : ''}`}
-                  title={
-                    <div className="result-card-title">
-                      <div className="card-title-content">
-                        <span>{result.title || '查询结果'}</span>
-                        {listData && listData.header?.subtitle && (
-                          <span className="card-subtitle">{listData.header.subtitle}</span>
-                        )}
+          <>
+            <div className="result-history">
+              {queryResults.map((result, index) => {
+                const listData = result.type === 'list' ? (result.data as ListData) : null;
+                const isFullscreen = fullscreenResult === result.id;
+                
+                return (
+                  <Card
+                    key={result.id}
+                    className={`result-card history-card ${isFullscreen ? 'fullscreen' : ''}`}
+                    title={
+                      <div className="result-card-title">
+                        <div className="card-title-content">
+                          <span>{result.title || '查询结果'}</span>
+                          {listData && listData.header?.subtitle && (
+                            <span className="card-subtitle">{listData.header.subtitle}</span>
+                          )}
+                        </div>
+                        <span className="result-time">{formatTime(result.timestamp)}</span>
                       </div>
-                      <span className="result-time">{formatTime(result.timestamp)}</span>
-                    </div>
-                  }
-                  extra={
-                    <div className="card-actions">
-                      <Text type="secondary" style={{ marginRight: '16px' }}>
-                        查询: {result.query}
-                      </Text>
-                      {renderCardActions(result)}
-                    </div>
-                  }
-                  size="small"
-                >
-                  <div className="result-content">
-                    {result.type === 'error' && (
-                      <Alert
-                        message="查询错误"
-                        description={result.data as string}
-                        type="error"
-                        showIcon
-                        action={
-                          <Button size="small" danger onClick={() => refreshResult(result.id)} loading={result.isRefreshing}>
-                            重试
-                          </Button>
-                        }
-                      />
-                    )}
-                    {result.type === 'list' && (
-                      <div className="table-result">
-                        <Table 
-                          columns={getTableColumns()}
-                          dataSource={(result.data as ListData).items.map(item => ({...item, key: item.id}))}
-                          pagination={{ pageSize: 10, size: "small" }}
-                          size="small"
-                          className="data-table"
-                          rowClassName={() => 'table-row'}
-                          bordered
-                          scroll={{ x: 'max-content' }}
+                    }
+                    extra={
+                      <div className="card-actions">
+                        <Text type="secondary" style={{ marginRight: '16px' }}>
+                          查询: {result.query}
+                        </Text>
+                        {renderCardActions(result)}
+                      </div>
+                    }
+                    size="small"
+                  >
+                    <div className="result-content">
+                      {result.type === 'error' && (
+                        <Alert
+                          message="查询错误"
+                          description={result.data as string}
+                          type="error"
+                          showIcon
+                          action={
+                            <Button size="small" danger onClick={() => refreshResult(result.id)} loading={result.isRefreshing}>
+                              重试
+                            </Button>
+                          }
                         />
-                      </div>
-                    )}
-                  </div>
-                  {index < queryResults.length - 1 && !isFullscreen && <Divider />}
-                </Card>
-              );
-            })}
-            
-            {loading && (
-              <div className="result-loading-bottom">
-                <Spin size="large" />
-                <p style={{ marginTop: 16 }}>正在处理您的请求...</p>
-              </div>
-            )}
-          </div>
+                      )}
+                      {result.type === 'list' && (
+                        <div className="table-result">
+                          <Table 
+                            columns={getTableColumns()}
+                            dataSource={(result.data as ListData).items.map(item => ({...item, key: item.id}))}
+                            pagination={{ pageSize: 10, size: "small" }}
+                            size="small"
+                            className="data-table"
+                            rowClassName={() => 'table-row'}
+                            bordered
+                            scroll={{ x: 'max-content' }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    {index < queryResults.length - 1 && !isFullscreen && <Divider />}
+                  </Card>
+                );
+              })}
+              {/* 将加载动画放在结果历史内部的最底部 */}
+              {loading && (
+                <div className="result-loading-bottom">
+                  <Spin size="large" />
+                  <p style={{ marginTop: 16 }}>正在处理您的请求...</p>
+                </div>
+              )}
+            </div>
+          </>
         )}
       </Content>
     </Layout>
