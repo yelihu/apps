@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app1.mapper.EmployeeMapper">
+
+    <!-- 自定义结果映射 -->
+    <resultMap id="BaseResultMap" type="com.example.app1.entity.EmployeePo">
+        <id column="id" property="id"/>
+        <result column="work_no" property="workNo"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birth_date" property="birthDate"/>
+        <result column="dept_no" property="deptNo"/>
+        <result column="entry_date" property="entryDate"/>
+        <result column="position" property="position"/>
+        <result column="level" property="level"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <!-- 根据职级查询员工列表 -->
+    <select id="selectByLevel" resultMap="BaseResultMap">
+        SELECT * FROM emp_basic
+        WHERE level = #{level}
+        ORDER BY entry_date DESC
+    </select>
+    
+    <!-- 根据多个条件组合查询员工 -->
+    <select id="selectByMultiCondition" resultMap="BaseResultMap">
+        SELECT * FROM emp_basic
+        <where>
+            <if test="deptNo != null and deptNo != ''">
+                AND dept_no = #{deptNo}
+            </if>
+            <if test="position != null and position != ''">
+                AND position LIKE CONCAT('%', #{position}, '%')
+            </if>
+            <if test="level != null and level != ''">
+                AND level = #{level}
+            </if>
+        </where>
+        ORDER BY work_no
+    </select>
+    
+</mapper> 
