@@ -1,0 +1,58 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Spring多模块项目测试类配置规则
+
+## 测试类组件扫描配置
+
+在Spring多模块项目中，测试类必须正确配置组件扫描范围，否则将无法注入来自不同模块的服务和组件。
+
+### 必须添加ComponentScan注解
+
+所有测试类都必须添加以下注解：
+
+```java
+@ComponentScan(basePackages = {"com.example.app1", "com.example.common"})
+```
+
+这是确保测试类能够找到所有相关模块中组件的关键。
+
+### 完整测试类配置示例
+
+```java
+@SpringBootTest
+@ActiveProfiles("test")
+@ComponentScan(basePackages = {"com.example.app1", "com.example.common"})
+public class MyServiceTest {
+    // 测试代码
+}
+```
+
+### 配置类也应添加组件扫描
+
+测试配置类也应添加相同的组件扫描配置：
+
+```java
+@Configuration
+@EnableXXX // 其他必要注解
+@ComponentScan(basePackages = {"com.example.app1", "com.example.common"})
+public class TestConfig {
+    // 配置代码
+}
+```
+
+## 常见问题
+
+如果没有添加正确的组件扫描配置，可能会遇到以下错误：
+
+1. `No qualifying bean of type found`：找不到需要注入的bean
+2. 服务无法自动装配
+3. 测试上下文无法正确加载
+
+## 注意事项
+
+1. 确保扫描路径包含所有相关模块的包
+2. 不同的模块可能需要不同的扫描路径
+3. 避免过于宽泛的扫描路径，以免影响测试性能

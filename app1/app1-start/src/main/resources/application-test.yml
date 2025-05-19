@@ -6,4 +6,13 @@ spring:
     # 数据库初始化配置
     sql:
       init:
-        mode: always 
+        mode: always
+  # Elasticsearch配置
+  elasticsearch:
+    uris: http://localhost:9200
+    connection-timeout: 5s
+    socket-timeout: 30s
+  data:
+    elasticsearch:
+      repositories:
+        base-package: com.example.app1.elasticsearch.repository 

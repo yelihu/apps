@@ -96,3 +96,5 @@ common:
   service:
     hello-world-enabled: true
     welcome-message: "来自App1的问候消息!"
+
+# Elasticsearch配置已移动到application-test.yml

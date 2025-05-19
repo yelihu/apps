@@ -1,0 +1,42 @@
+spring:
+  # Elasticsearch配置
+  elasticsearch:
+    uris: http://localhost:9200
+    connection-timeout: 5s
+    socket-timeout: 30s
+  # 数据库配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/application?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: ${DB_PASSWORD:}
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.example.app1.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      table-underline: true
+
+# 应用配置
+common:
+  service:
+    hello-world-enabled: true
+    welcome-message: "测试环境的问候消息!"
+
+logging:
+  level:
+    org.springframework.data.elasticsearch: DEBUG
+    com.example.app1.elasticsearch: DEBUG
+    org.mybatis: DEBUG 
