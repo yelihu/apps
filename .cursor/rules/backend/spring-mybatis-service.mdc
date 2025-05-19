@@ -1,0 +1,122 @@
+---
+description: 当设计和书写从数据库读写数据到应用里面的时候
+globs: 
+alwaysApply: false
+---
+# 数据库查询代码编写规范与示例
+
+本规则定义了Spring Boot项目使用MyBatis-Plus进行数据库操作的标准模式。
+
+## 编写要素
+
+1. **实体类(Po)**
+   - 与数据库表结构对应的Java类
+   - 使用Lombok简化getter/setter
+   - 使用MyBatis-Plus注解标记表名和主键
+
+2. **数据访问层(Mapper)**
+   - 继承BaseMapper接口获取基础CRUD功能
+   - 提供自定义查询方法（注解方式和XML方式）
+   - 方法命名规则为：selectByXxx
+
+3. **服务接口层(Service)**
+   - 定义业务逻辑接口
+   - 继承IService接口获取服务层通用方法
+   - 方法命名规则为：getXxx或searchXxx
+
+4. **服务实现层(ServiceImpl)**
+   - 实现Service接口定义的方法
+   - 继承ServiceImpl获取通用实现
+   - 组合、转换复杂查询结果
+
+5. **XML映射文件**
+   - 处理复杂SQL查询
+   - 支持动态SQL语句
+   - 自定义结果映射
+
+6. **单元测试类(Test)**
+   - 对Service层方法进行全面测试
+   - 包括正向测试和异常测试
+   - 使用事务确保测试数据不污染数据库
+
+## 编写位置
+
+1. **实体类**
+   - 路径：`com.example.{应用模块}.entity`
+   - 文件命名：`XxxxPo.java`
+
+2. **Mapper接口**
+   - 路径：`com.example.{应用模块}.mapper`
+   - 文件命名：`XxxxMapper.java`
+
+3. **XML映射文件**
+   - 路径：`resources/mapper`
+   - 文件命名：`XxxxMapper.xml`
+
+4. **Service接口**
+   - 路径：`com.example.{应用模块}.service`
+   - 文件命名：`XxxxService.java`
+
+5. **Service实现**
+   - 路径：`com.example.{应用模块}.service.impl`
+   - 文件命名：`XxxxServiceImpl.java`
+
+6. **单元测试类**
+   - 路径：`com.example.{应用模块}.service` (在test目录下)
+   - 文件命名：`XxxxServiceTest.java`
+
+## 编写规范
+
+1. **命名规范**
+   - 实体类使用Po后缀（如`EmployeePo`）
+   - Mapper方法使用select前缀（如`selectByWorkNo`）
+   - Service方法使用get/search前缀（如`getEmployeeByWorkNo`）
+   - 测试方法使用test前缀（如`testGetEmployeeByWorkNo`）
+
+2. **注解规范**
+   - 表名和字段映射采用注解方式
+   - 简单查询使用`@Select`注解
+   - 复杂查询使用XML配置
+   - 测试类使用`@SpringBootTest`、`@Transactional`、`@ActiveProfiles("test")`
+
+3. **代码组织**
+   - 每个层次职责明确
+   - 遵循接口先行原则
+   - 公共方法通过继承获得
+
+4. **异常处理**
+   - 业务逻辑层对查询结果进行判断和异常抛出
+
+5. **测试规范**
+   - 每个Service方法至少有一个对应的测试方法
+   - 使用`@DisplayName`提高测试可读性
+   - 包含正向测试和异常情况测试
+   - 使用各种断言方法验证结果正确性
+
+## 使用的技术栈/框架
+
+1. **ORM框架**
+   - MyBatis-Plus：提供基础CRUD操作
+   - MyBatis：处理复杂查询和动态SQL
+
+2. **注解工具**
+   - Lombok：简化Java Bean的编写（`@Data`）
+
+3. **查询方式**
+   - 注解方式：简单查询（`@Select`）
+   - XML方式：复杂查询和动态SQL
+
+4. **设计模式**
+   - 接口与实现分离
+   - 继承与组合结合使用
+
+5. **查询方法多样性**
+   - 精确查询：`selectByWorkNo`
+   - 模糊查询：`selectByNameLike`
+   - 多条件查询：`selectByMultiCondition`
+   - 动态SQL：基于参数动态构建查询条件
+
+6. **测试框架**
+   - JUnit 5：测试框架
+   - Spring Test：提供Spring上下文测试支持
+   - 断言工具：使用`assertEquals`、`assertNotNull`、`assertTrue`等
